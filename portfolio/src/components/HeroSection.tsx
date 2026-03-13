@@ -1,13 +1,4 @@
-import {
-  Button,
-  Center,
-  Container,
-  Group,
-  Stack,
-  Text,
-  Title,
-  Image,
-} from "@mantine/core";
+import { Container, Stack, Text, Title } from "@mantine/core";
 
 export function HeroSection() {
   return (
