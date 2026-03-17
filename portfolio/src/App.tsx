@@ -3,7 +3,7 @@ import { HeroSection } from "./components/HeroSection";
 
 import { TimelineSection } from "./components/TimelineSection";
 import { Footer } from "./components/Header";
-
+import { Analytics } from "@vercel/analytics/next";
 function App() {
   return (
     <AppShell
@@ -11,6 +11,7 @@ function App() {
       footer={{ height: 60 }}
       styles={{ main: { minHeight: "100vh" } }}
     >
+      <Analytics />
       <AppShell.Header>
         <Footer />
       </AppShell.Header>
