@@ -2,6 +2,7 @@ import { AppShell, Divider } from "@mantine/core";
 import { HeroSection } from "./components/HeroSection";
 
 import { TimelineSection } from "./components/TimelineSection";
+import { ProjectsSection } from "./components/ProjectsSection";
 import { Header } from "./components/Header";
 import { Analytics } from "@vercel/analytics/next";
 function App() {
@@ -19,6 +20,8 @@ function App() {
         <HeroSection />
         <Divider my="md" />
         <TimelineSection />
+        <Divider my="md" />
+        <ProjectsSection />
       </AppShell.Main>
     </AppShell>
   );
