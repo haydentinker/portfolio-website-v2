@@ -2,7 +2,7 @@ import { AppShell, Divider } from "@mantine/core";
 import { HeroSection } from "./components/HeroSection";
 
 import { TimelineSection } from "./components/TimelineSection";
-import { Footer } from "./components/Header";
+import { Header } from "./components/Header";
 import { Analytics } from "@vercel/analytics/next";
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
     >
       <Analytics />
       <AppShell.Header>
-        <Footer />
+        <Header />
       </AppShell.Header>
       <AppShell.Main>
         <HeroSection />

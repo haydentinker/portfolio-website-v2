@@ -1,7 +1,7 @@
 import { Button, Flex, Title } from "@mantine/core";
 
 import { BrandLinkedin, BrandGithub } from "tabler-icons-react";
-export const Footer = () => {
+export const Header = () => {
   return (
     <Flex justify={"space-between"} m={10}>
       <Title>HT</Title>
