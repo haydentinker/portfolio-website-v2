@@ -1,10 +1,12 @@
 import { AppShell, Divider } from "@mantine/core";
 import { HeroSection } from "./components/HeroSection";
-
 import { TimelineSection } from "./components/TimelineSection";
 import { ProjectsSection } from "./components/ProjectsSection";
+import { ContactSection } from "./components/ContactSection";
 import { Header } from "./components/Header";
+import { AnimatedSection } from "./components/AnimatedSection";
 import { Analytics } from "@vercel/analytics/next";
+
 function App() {
   return (
     <AppShell
@@ -17,11 +19,27 @@ function App() {
         <Header />
       </AppShell.Header>
       <AppShell.Main>
-        <HeroSection />
+        <div id="hero">
+          <HeroSection />
+        </div>
         <Divider my="md" />
-        <TimelineSection />
+        <div id="timeline">
+          <AnimatedSection>
+            <TimelineSection />
+          </AnimatedSection>
+        </div>
         <Divider my="md" />
-        <ProjectsSection />
+        <div id="projects">
+          <AnimatedSection delay={100}>
+            <ProjectsSection />
+          </AnimatedSection>
+        </div>
+        <Divider my="md" />
+        <div id="contact">
+          <AnimatedSection>
+            <ContactSection />
+          </AnimatedSection>
+        </div>
       </AppShell.Main>
     </AppShell>
   );

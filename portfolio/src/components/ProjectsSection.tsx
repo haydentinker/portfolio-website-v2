@@ -11,8 +11,10 @@ import {
   Button,
   Image,
   AspectRatio,
+  Grid,
 } from "@mantine/core";
-import { BrandGithub } from "tabler-icons-react";
+import { BrandGithub, ExternalLink } from "tabler-icons-react";
+import { AnimatedSection } from "./AnimatedSection";
 
 interface Project {
   name: string;
@@ -21,18 +23,10 @@ interface Project {
   tagColor: string;
   githubUrl: string;
   imageUrl: string;
+  liveUrl?: string;
 }
 
 const PROJECTS: Project[] = [
-  {
-    name: "Portfolio Website",
-    description:
-      "The site you're on right now. Built with React, TypeScript, and Mantine UI. Deployed on Vercel with analytics tracking.",
-    tags: ["React", "TypeScript", "Mantine", "Vercel"],
-    tagColor: "blue",
-    githubUrl: "https://github.com/haydentinker/portfolio-website-v2",
-    imageUrl: "/projects/portfolioWebsite.png",
-  },
   {
     name: "Repository Augur",
     description:
@@ -51,6 +45,15 @@ const PROJECTS: Project[] = [
     tagColor: "violet",
     githubUrl: "https://github.com/haydentinker/Repo-Chat-Bot",
     imageUrl: "/projects/repoChatBot.png",
+  },
+  {
+    name: "Portfolio Website",
+    description:
+      "The site you're on right now. Built with React, TypeScript, and Mantine UI. Deployed on Vercel with analytics tracking.",
+    tags: ["React", "TypeScript", "Mantine", "Vercel"],
+    tagColor: "blue",
+    githubUrl: "https://github.com/haydentinker/portfolio-website-v2",
+    imageUrl: "/projects/portfolioWebsite.png",
   },
   {
     name: "Bed Wars Stats Dashboard",
@@ -73,7 +76,7 @@ const PROJECTS: Project[] = [
   {
     name: "Maple's Adventure",
     description:
-      "Maple's Adventure is a side-scrolling game built with Python and Pygame, featuring a charming character trying to avoid obstacles as they progessively get faster.",
+      "Maple's Adventure is a side-scrolling game built with Python and Pygame, featuring a charming character trying to avoid obstacles as they progressively get faster.",
     tags: ["Python", "Pygame", "Game Development"],
     tagColor: "teal",
     githubUrl: "https://github.com/haydentinker/PugDash",
@@ -81,71 +84,199 @@ const PROJECTS: Project[] = [
   },
 ];
 
+const cardHoverStyle = {
+  transition: "transform 0.2s ease, box-shadow 0.2s ease",
+};
+
+const cardHoverActive = {
+  transform: "translateY(-4px)",
+  boxShadow: "0 12px 32px rgba(0,0,0,0.4)",
+};
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  return (
+    <AnimatedSection delay={index * 80}>
+      <Card
+        shadow="sm"
+        padding="lg"
+        radius="md"
+        withBorder
+        style={{ display: "flex", flexDirection: "column", ...cardHoverStyle }}
+        onMouseEnter={(e) =>
+          Object.assign((e.currentTarget as HTMLElement).style, cardHoverActive)
+        }
+        onMouseLeave={(e) =>
+          Object.assign((e.currentTarget as HTMLElement).style, {
+            transform: "translateY(0)",
+            boxShadow: "",
+          })
+        }
+      >
+        <Card.Section>
+          <AspectRatio ratio={16 / 9}>
+            <Image
+              src={project.imageUrl}
+              alt={`${project.name} screenshot`}
+              fallbackSrc="https://placehold.co/600x338?text=No+Image"
+            />
+          </AspectRatio>
+        </Card.Section>
+
+        <Stack mt="md" gap="sm" style={{ flex: 1 }}>
+          <Text fw={600} size="md">
+            {project.name}
+          </Text>
+
+          <Text size="sm" c="dimmed" style={{ flex: 1 }}>
+            {project.description}
+          </Text>
+
+          <Group gap="xs">
+            {project.tags.map((tag) => (
+              <Badge
+                key={tag}
+                size="sm"
+                variant="light"
+                color={project.tagColor}
+              >
+                {tag}
+              </Badge>
+            ))}
+          </Group>
+
+          <Group gap="xs" mt="xs">
+            <Button
+              variant="outline"
+              color="gray"
+              size="sm"
+              leftSection={<BrandGithub size={16} />}
+              onClick={() => window.open(project.githubUrl, "_blank")}
+              style={{ flex: 1 }}
+            >
+              GitHub
+            </Button>
+            {project.liveUrl && (
+              <Button
+                variant="light"
+                color="blue"
+                size="sm"
+                leftSection={<ExternalLink size={16} />}
+                onClick={() => window.open(project.liveUrl, "_blank")}
+                style={{ flex: 1 }}
+              >
+                Live Demo
+              </Button>
+            )}
+          </Group>
+        </Stack>
+      </Card>
+    </AnimatedSection>
+  );
+}
+
 export const ProjectsSection = () => {
+  const [featured, ...rest] = PROJECTS;
+
   return (
     <Center mx="sm" mt={80} mb={120}>
-      <Stack style={{ width: "100%", maxWidth: 800 }}>
+      <Stack style={{ width: "100%", maxWidth: 800 }} gap="xl">
         <Box mb="xl">
           <Title order={2} className="section-heading">
             Projects
           </Title>
         </Box>
 
-        <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="lg">
-          {PROJECTS.map((project) => (
-            <Card
-              key={project.name}
-              shadow="sm"
-              padding="lg"
-              radius="md"
-              withBorder
-              style={{ display: "flex", flexDirection: "column" }}
-            >
-              <Card.Section>
+        <AnimatedSection>
+          <Card
+            shadow="md"
+            padding="xl"
+            radius="md"
+            withBorder
+            style={cardHoverStyle}
+            onMouseEnter={(e) =>
+              Object.assign(
+                (e.currentTarget as HTMLElement).style,
+                cardHoverActive,
+              )
+            }
+            onMouseLeave={(e) =>
+              Object.assign((e.currentTarget as HTMLElement).style, {
+                transform: "translateY(0)",
+                boxShadow: "",
+              })
+            }
+          >
+            <Grid gutter="xl" align="center">
+              <Grid.Col span={{ base: 12, sm: 6 }}>
                 <AspectRatio ratio={16 / 9}>
                   <Image
-                    src={project.imageUrl}
-                    alt={`${project.name} screenshot`}
+                    src={featured.imageUrl}
+                    alt={`${featured.name} screenshot`}
+                    radius="sm"
                     fallbackSrc="https://placehold.co/600x338?text=No+Image"
                   />
                 </AspectRatio>
-              </Card.Section>
-
-              <Stack mt="md" gap="sm" style={{ flex: 1 }}>
-                <Text fw={600} size="md">
-                  {project.name}
-                </Text>
-
-                <Text size="sm" c="dimmed" style={{ flex: 1 }}>
-                  {project.description}
-                </Text>
-
-                <Group gap="xs">
-                  {project.tags.map((tag) => (
+              </Grid.Col>
+              <Grid.Col span={{ base: 12, sm: 6 }}>
+                <Stack gap="sm">
+                  <Group gap="xs">
                     <Badge
-                      key={tag}
                       size="sm"
-                      variant="light"
-                      color={project.tagColor}
+                      variant="gradient"
+                      gradient={{ from: "violet", to: "indigo" }}
                     >
-                      {tag}
+                      Featured Project
                     </Badge>
-                  ))}
-                </Group>
+                  </Group>
+                  <Text fw={700} size="xl">
+                    {featured.name}
+                  </Text>
+                  <Text size="sm" c="dimmed">
+                    {featured.description}
+                  </Text>
+                  <Group gap="xs" mt="xs">
+                    {featured.tags.map((tag) => (
+                      <Badge
+                        key={tag}
+                        size="sm"
+                        variant="light"
+                        color={featured.tagColor}
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </Group>
+                  <Group gap="xs" mt="sm">
+                    <Button
+                      variant="outline"
+                      color="gray"
+                      size="sm"
+                      leftSection={<BrandGithub size={16} />}
+                      onClick={() => window.open(featured.githubUrl, "_blank")}
+                    >
+                      GitHub
+                    </Button>
+                    {featured.liveUrl && (
+                      <Button
+                        variant="light"
+                        color="blue"
+                        size="sm"
+                        leftSection={<ExternalLink size={16} />}
+                        onClick={() => window.open(featured.liveUrl, "_blank")}
+                      >
+                        Live Demo
+                      </Button>
+                    )}
+                  </Group>
+                </Stack>
+              </Grid.Col>
+            </Grid>
+          </Card>
+        </AnimatedSection>
 
-                <Button
-                  mt="xs"
-                  variant="outline"
-                  color="gray"
-                  size="sm"
-                  leftSection={<BrandGithub size={16} />}
-                  onClick={() => window.open(project.githubUrl, "_blank")}
-                  fullWidth
-                >
-                  View on GitHub
-                </Button>
-              </Stack>
-            </Card>
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
+          {rest.map((project, i) => (
+            <ProjectCard key={project.name} project={project} index={i} />
           ))}
         </SimpleGrid>
       </Stack>

@@ -9,7 +9,12 @@ import {
   Badge,
   ThemeIcon,
 } from "@mantine/core";
-import { BrandGithub, BrandLinkedin, Download, CircleCheck } from "tabler-icons-react";
+import {
+  BrandGithub,
+  BrandLinkedin,
+  Download,
+  CircleCheck,
+} from "tabler-icons-react";
 const SKILLS = [
   { name: "TypeScript", from: "blue", to: "cyan" },
   { name: "React", from: "cyan", to: "teal" },
@@ -17,25 +22,21 @@ const SKILLS = [
   { name: "AWS", from: "orange", to: "yellow" },
   { name: "AWS CDK", from: "orange", to: "red" },
   { name: "Python", from: "red", to: "orange" },
-  { name: "SQL / MySQL", from: "grape", to: "violet" },
+  { name: "SQL", from: "grape", to: "violet" },
+  { name: "NoSQL", from: "green", to: "blue" },
   { name: "Redis", from: "red", to: "pink" },
   { name: "REST APIs", from: "violet", to: "indigo" },
   { name: "GraphQL", from: "indigo", to: "blue" },
+  { name: "Microservices", from: "blue", to: "red" },
   { name: "Full-Stack Development", from: "gray", to: "dark" },
   { name: "Docker", from: "blue", to: "indigo" },
 ];
 export function HeroSection() {
   return (
-    <Container
-      pt={{ base: 100, md: 0 }}
-      h={"100vh"}
-      style={{
-        position: "relative",
-      }}
-    >
+    <Container pt={{ base: 100, md: 0 }} style={{ minHeight: "100vh" }}>
       <Grid
         style={{ width: "100%" }}
-        gutter={{ base: 48, md: 80 }}
+        gutter={{ base: 32, md: 80 }}
         align="center"
       >
         <Grid.Col span={{ base: 12, md: 7 }}>
@@ -48,7 +49,10 @@ export function HeroSection() {
                 Open to new opportunities
               </Text>
             </Group>
-            <Title order={1} size={80}>
+            <Title
+              order={1}
+              style={{ fontSize: "clamp(2.5rem, 10vw, 5rem)", lineHeight: 1.1 }}
+            >
               Hello, I am <br />
               <Text
                 component="span"
@@ -59,15 +63,18 @@ export function HeroSection() {
                 Hayden Tinker
               </Text>{" "}
             </Title>
+            <Title order={2} c="dimmed" fw={400} size="xl">
+              Full-Stack Software Engineer
+            </Title>
 
-            <Text size={"xl"}>
+            <Text size="lg">
               Skilled Full-Stack Engineer with expertise in TypeScript, React,
               Node.js, and AWS. Developed innovative software solutions that
               improved operational efficiency and enhanced user experiences.
             </Text>
-            <Group gap="sm">
+            <Group gap="sm" wrap="wrap">
               <Button
-                size="lg"
+                size="md"
                 variant="gradient"
                 gradient={{ from: "#339af0", to: "#22d3ee" }}
                 leftSection={<Download size={19} />}
@@ -77,7 +84,7 @@ export function HeroSection() {
                 View Resume
               </Button>
               <Button
-                size="lg"
+                size="md"
                 variant="outline"
                 color="blue"
                 leftSection={<BrandLinkedin size={19} />}
@@ -91,7 +98,7 @@ export function HeroSection() {
                 LinkedIn
               </Button>
               <Button
-                size="lg"
+                size="md"
                 variant="subtle"
                 color="gray"
                 leftSection={<BrandGithub size={19} />}
@@ -105,7 +112,11 @@ export function HeroSection() {
           </Stack>
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 5 }}>
-          <Stack gap="lg" className="hero-animate hero-animate-2">
+          <Stack
+            gap="lg"
+            className="hero-animate hero-animate-2"
+            pb={{ base: "xl", md: 0 }}
+          >
             <div className="hero-stack-header">
               <Text
                 size="xs"
@@ -117,11 +128,11 @@ export function HeroSection() {
                 Skills
               </Text>
             </div>
-            <Group gap="sm">
+            <Group gap="sm" wrap="wrap">
               {SKILLS.map((skill) => (
                 <Badge
                   key={skill.name}
-                  size="lg"
+                  size="md"
                   variant="gradient"
                   gradient={{ from: skill.from, to: skill.to, deg: 135 }}
                   className="hero-skill-badge"
