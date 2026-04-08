@@ -1,6 +1,17 @@
-import { Button, Burger, Drawer, Flex, Stack, Title, Divider } from "@mantine/core";
+import {
+  ActionIcon,
+  Button,
+  Burger,
+  Drawer,
+  Flex,
+  Stack,
+  Title,
+  Divider,
+  useMantineColorScheme,
+  useComputedColorScheme,
+} from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { BrandLinkedin, BrandGithub, Download } from "tabler-icons-react";
+import { BrandLinkedin, BrandGithub, Download, Sun, Moon } from "tabler-icons-react";
 
 function scrollTo(id: string, close?: () => void) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -9,6 +20,12 @@ function scrollTo(id: string, close?: () => void) {
 
 export const Header = () => {
   const [opened, { open, close }] = useDisclosure(false);
+  const { setColorScheme } = useMantineColorScheme();
+  const computed = useComputedColorScheme("dark");
+
+  function toggleScheme() {
+    setColorScheme(computed === "dark" ? "light" : "dark");
+  }
 
   return (
     <>
@@ -22,7 +39,7 @@ export const Header = () => {
         </Title>
 
         {/* Desktop nav */}
-        <Flex gap={4} visibleFrom="sm">
+        <Flex gap={4} align="center" visibleFrom="sm">
           <Button onClick={() => scrollTo("timeline")} variant="subtle" size="sm">
             Experience
           </Button>
@@ -57,10 +74,30 @@ export const Header = () => {
           >
             <BrandGithub size={18} />
           </Button>
+          <ActionIcon
+            onClick={toggleScheme}
+            variant="subtle"
+            color="gray"
+            size="lg"
+            aria-label="Toggle color scheme"
+          >
+            {computed === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </ActionIcon>
         </Flex>
 
-        {/* Mobile burger */}
-        <Burger opened={opened} onClick={open} hiddenFrom="sm" size="sm" />
+        {/* Mobile: theme toggle + burger */}
+        <Flex gap={8} align="center" hiddenFrom="sm">
+          <ActionIcon
+            onClick={toggleScheme}
+            variant="subtle"
+            color="gray"
+            size="lg"
+            aria-label="Toggle color scheme"
+          >
+            {computed === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </ActionIcon>
+          <Burger opened={opened} onClick={open} size="sm" />
+        </Flex>
       </Flex>
 
       <Drawer
