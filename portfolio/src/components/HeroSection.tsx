@@ -7,8 +7,9 @@ import {
   Text,
   Title,
   Badge,
+  ThemeIcon,
 } from "@mantine/core";
-import { BrandGithub, BrandLinkedin, Download } from "tabler-icons-react";
+import { BrandGithub, BrandLinkedin, Download, CircleCheck } from "tabler-icons-react";
 const SKILLS = [
   { name: "TypeScript", from: "blue", to: "cyan" },
   { name: "React", from: "cyan", to: "teal" },
@@ -39,6 +40,14 @@ export function HeroSection() {
       >
         <Grid.Col span={{ base: 12, md: 7 }}>
           <Stack mt={{ base: 10, md: 250 }} justify="center">
+            <Group gap="xs">
+              <ThemeIcon color="green" variant="light" size="sm" radius="xl">
+                <CircleCheck size={12} />
+              </ThemeIcon>
+              <Text size="sm" c="green" fw={500}>
+                Open to new opportunities
+              </Text>
+            </Group>
             <Title order={1} size={80}>
               Hello, I am <br />
               <Text
