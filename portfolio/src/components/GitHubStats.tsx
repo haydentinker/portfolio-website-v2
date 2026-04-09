@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
 import { Group, Text, Skeleton, Anchor, Badge, Stack } from "@mantine/core";
-import { BrandGithub, Star, Users } from "tabler-icons-react";
+import { BrandGithub, Star, Users, Clock, Calendar } from "tabler-icons-react";
 
 interface Stats {
   repos: number;
   stars: number;
   followers: number;
   topLanguages: string[];
+  yearsActive: string;
+  lastActive: string;
+}
+
+function relativeTime(date: string): string {
+  const days = Math.floor((Date.now() - new Date(date).getTime()) / 86_400_000);
+  if (days === 0) return "active today";
+  if (days === 1) return "active yesterday";
+  if (days < 7) return `${days}d ago`;
+  if (days < 30) return `${Math.floor(days / 7)}w ago`;
+  if (days < 365) return `${Math.floor(days / 30)}mo ago`;
+  return `${Math.floor(days / 365)}yr ago`;
 }
 
 function StatItem({
@@ -15,7 +27,7 @@ function StatItem({
   label,
 }: {
   icon: React.ReactNode;
-  value: number | null;
+  value: string | number | null;
   label: string;
 }) {
   return (
@@ -24,15 +36,13 @@ function StatItem({
         {icon}
       </Text>
       {value === null ? (
-        <Skeleton height={14} width={24} radius="sm" />
+        <Skeleton height={14} width={32} radius="sm" />
       ) : (
         <Text size="sm" fw={600}>
-          {value.toLocaleString()}
+          {typeof value === "number" ? value.toLocaleString() : value}
         </Text>
       )}
-      <Text size="sm" c="dimmed">
-        {label}
-      </Text>
+      {label && <Text size="sm" c="dimmed">{label}</Text>}
     </Group>
   );
 }
@@ -49,7 +59,7 @@ export function GitHubStats() {
         ]);
         if (!userRes.ok || !reposRes.ok) return;
         const user = await userRes.json();
-        const repos: { stargazers_count: number; language: string | null }[] = await reposRes.json();
+        const repos: { stargazers_count: number; language: string | null; pushed_at: string }[] = await reposRes.json();
         const stars = repos.reduce((sum, r) => sum + r.stargazers_count, 0);
         const langCount: Record<string, number> = {};
         for (const r of repos) {
@@ -59,7 +69,11 @@ export function GitHubStats() {
           .sort((a, b) => b[1] - a[1])
           .slice(0, 5)
           .map(([lang]) => lang);
-        setStats({ repos: user.public_repos, stars, followers: user.followers, topLanguages });
+        const mostRecent = repos.reduce((latest, r) =>
+          r.pushed_at > latest ? r.pushed_at : latest, "");
+        const yearsActive = `${new Date().getFullYear() - new Date(user.created_at).getFullYear()} yrs`;
+        const lastActive = relativeTime(mostRecent);
+        setStats({ repos: user.public_repos, stars, followers: user.followers, topLanguages, yearsActive, lastActive });
       } catch {
         // silently fail — stats are non-critical
       }
@@ -91,6 +105,16 @@ export function GitHubStats() {
             icon={<Users size={14} />}
             value={stats?.followers ?? null}
             label="followers"
+          />
+          <StatItem
+            icon={<Calendar size={14} />}
+            value={stats?.yearsActive ?? null}
+            label="on GitHub"
+          />
+          <StatItem
+            icon={<Clock size={14} />}
+            value={stats?.lastActive ?? null}
+            label={stats && !stats.lastActive.endsWith("ago") ? "" : "last active"}
           />
         </Group>
         <Group gap="xs" wrap="wrap">

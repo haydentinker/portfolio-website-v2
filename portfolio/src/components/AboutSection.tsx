@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import { Code, Bulb, Users } from "tabler-icons-react";
 import { GitHubStats } from "./GitHubStats";
+import { LeetCodeStats } from "./LeetCodeStats";
 
 const VALUES = [
   {
@@ -69,6 +70,8 @@ export const AboutSection = () => {
               </Text>
               <Divider />
               <GitHubStats />
+              <Divider />
+              <LeetCodeStats />
             </Stack>
           </Grid.Col>
 
