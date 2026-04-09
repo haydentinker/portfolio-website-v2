@@ -63,6 +63,7 @@ const PROJECTS: Project[] = [
     tagColor: "red",
     githubUrl: "https://github.com/haydentinker/Bed-Wars-Stats-Dashboard",
     imageUrl: "/projects/bedWarsStats.png",
+    liveUrl: "https://bed-wars-stats-dashboard.vercel.app/",
   },
   {
     name: "LeetCode Solutions",
@@ -81,6 +82,7 @@ const PROJECTS: Project[] = [
     tagColor: "teal",
     githubUrl: "https://github.com/haydentinker/PugDash",
     imageUrl: "/projects/pugDash.png",
+    liveUrl: "https://pug-dash-nine.vercel.app/",
   },
 ];
 
