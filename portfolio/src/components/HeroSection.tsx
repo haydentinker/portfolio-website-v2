@@ -81,6 +81,8 @@ const SKILLS = [
   { name: "AWS", from: "orange", to: "yellow" },
   { name: "AWS CDK", from: "orange", to: "red" },
   { name: "Python", from: "red", to: "orange" },
+  { name: "Flask", from: "yellow", to: "red" },
+  { name: "AI Integration", from: "pink", to: "red" },
   { name: "SQL", from: "grape", to: "violet" },
   { name: "NoSQL", from: "green", to: "blue" },
   { name: "Redis", from: "red", to: "pink" },
@@ -89,6 +91,7 @@ const SKILLS = [
   { name: "Microservices", from: "blue", to: "red" },
   { name: "Full-Stack Development", from: "gray", to: "dark" },
   { name: "Docker", from: "blue", to: "indigo" },
+  { name: "Web Application Development", from: "yellow", to: "indigo" },
 ];
 export function HeroSection() {
   const role = useTypewriter(ROLES);
