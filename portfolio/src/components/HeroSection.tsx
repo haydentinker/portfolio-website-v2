@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -15,6 +16,50 @@ import {
   Download,
   CircleCheck,
 } from "tabler-icons-react";
+
+const ROLES = [
+  "Full-Stack Software Engineer",
+  "React & TypeScript Dev",
+  "AWS Cloud Engineer",
+  "AI / RAG Builder",
+];
+
+function useTypewriter(phrases: string[], typingSpeed = 65, deletingSpeed = 35, pauseMs = 1800) {
+  const [displayed, setDisplayed] = useState("");
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = phrases[phraseIndex];
+
+    if (!deleting && charIndex < current.length) {
+      const t = setTimeout(() => setCharIndex((c) => c + 1), typingSpeed);
+      return () => clearTimeout(t);
+    }
+
+    if (!deleting && charIndex === current.length) {
+      const t = setTimeout(() => setDeleting(true), pauseMs);
+      return () => clearTimeout(t);
+    }
+
+    if (deleting && charIndex > 0) {
+      const t = setTimeout(() => setCharIndex((c) => c - 1), deletingSpeed);
+      return () => clearTimeout(t);
+    }
+
+    if (deleting && charIndex === 0) {
+      setDeleting(false);
+      setPhraseIndex((i) => (i + 1) % phrases.length);
+    }
+  }, [charIndex, deleting, phraseIndex, phrases, typingSpeed, deletingSpeed, pauseMs]);
+
+  useEffect(() => {
+    setDisplayed(phrases[phraseIndex].slice(0, charIndex));
+  }, [charIndex, phraseIndex, phrases]);
+
+  return displayed;
+}
 const SKILLS = [
   { name: "TypeScript", from: "blue", to: "cyan" },
   { name: "React", from: "cyan", to: "teal" },
@@ -32,6 +77,8 @@ const SKILLS = [
   { name: "Docker", from: "blue", to: "indigo" },
 ];
 export function HeroSection() {
+  const role = useTypewriter(ROLES);
+
   return (
     <Container pt={{ base: 100, md: 0 }} style={{ minHeight: "100vh" }}>
       <Grid
@@ -63,8 +110,10 @@ export function HeroSection() {
                 Hayden Tinker
               </Text>{" "}
             </Title>
-            <Title order={2} c="dimmed" fw={400} size="xl">
-              Full-Stack Software Engineer
+            <Title order={2} c="dimmed" fw={400} size="xl" style={{ minHeight: "2rem" }}>
+              {role}
+              <span style={{ borderRight: "2px solid", marginLeft: 2, animation: "blink 1s step-end infinite" }}>
+              </span>
             </Title>
 
             <Text size="lg">

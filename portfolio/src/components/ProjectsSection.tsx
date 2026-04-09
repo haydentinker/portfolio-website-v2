@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Center,
   Stack,
@@ -86,16 +87,17 @@ const PROJECTS: Project[] = [
   },
 ];
 
-const cardHoverStyle = {
-  transition: "transform 0.2s ease, box-shadow 0.2s ease",
-};
-
-const cardHoverActive = {
-  transform: "translateY(-4px)",
-  boxShadow: "0 12px 32px rgba(0,0,0,0.4)",
-};
+function hoverStyle(hovered: boolean) {
+  return {
+    transition: "transform 0.2s ease, box-shadow 0.2s ease",
+    transform: hovered ? "translateY(-4px)" : "translateY(0)",
+    boxShadow: hovered ? "0 12px 32px rgba(0,0,0,0.4)" : undefined,
+  };
+}
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <AnimatedSection delay={index * 80}>
       <Card
@@ -103,16 +105,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         padding="lg"
         radius="md"
         withBorder
-        style={{ display: "flex", flexDirection: "column", ...cardHoverStyle }}
-        onMouseEnter={(e) =>
-          Object.assign((e.currentTarget as HTMLElement).style, cardHoverActive)
-        }
-        onMouseLeave={(e) =>
-          Object.assign((e.currentTarget as HTMLElement).style, {
-            transform: "translateY(0)",
-            boxShadow: "",
-          })
-        }
+        style={{ display: "flex", flexDirection: "column", ...hoverStyle(hovered) }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
       >
         <Card.Section>
           <AspectRatio ratio={16 / 9}>
@@ -178,6 +173,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export const ProjectsSection = () => {
   const [featured, ...rest] = PROJECTS;
+  const [featuredHovered, setFeaturedHovered] = useState(false);
 
   return (
     <Center mx="sm" mt={80} mb={120}>
@@ -194,19 +190,9 @@ export const ProjectsSection = () => {
             padding="xl"
             radius="md"
             withBorder
-            style={cardHoverStyle}
-            onMouseEnter={(e) =>
-              Object.assign(
-                (e.currentTarget as HTMLElement).style,
-                cardHoverActive,
-              )
-            }
-            onMouseLeave={(e) =>
-              Object.assign((e.currentTarget as HTMLElement).style, {
-                transform: "translateY(0)",
-                boxShadow: "",
-              })
-            }
+            style={hoverStyle(featuredHovered)}
+            onMouseEnter={() => setFeaturedHovered(true)}
+            onMouseLeave={() => setFeaturedHovered(false)}
           >
             <Grid gutter="xl" align="center">
               <Grid.Col span={{ base: 12, sm: 6 }}>

@@ -5,8 +5,12 @@ import { TimelineSection } from "./components/TimelineSection";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { ContactSection } from "./components/ContactSection";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 import { AnimatedSection } from "./components/AnimatedSection";
+import { ScrollProgressBar } from "./components/ScrollProgressBar";
+import { Terminal } from "./components/Terminal";
 import { Analytics } from "@vercel/analytics/react";
+import "./App.css";
 
 function App() {
   return (
@@ -16,6 +20,8 @@ function App() {
       styles={{ main: { minHeight: "100vh" } }}
     >
       <Analytics />
+      <ScrollProgressBar />
+      <Terminal />
       <AppShell.Header>
         <Header />
       </AppShell.Header>
@@ -48,6 +54,9 @@ function App() {
           </AnimatedSection>
         </div>
       </AppShell.Main>
+      <AppShell.Footer>
+        <Footer />
+      </AppShell.Footer>
     </AppShell>
   );
 }

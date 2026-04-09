@@ -7,8 +7,10 @@ import {
   Grid,
   ThemeIcon,
   Group,
+  Divider,
 } from "@mantine/core";
 import { Code, Bulb, Users } from "tabler-icons-react";
+import { GitHubStats } from "./GitHubStats";
 
 const VALUES = [
   {
@@ -65,6 +67,8 @@ export const AboutSection = () => {
                 on problems that sit at the intersection of good engineering and
                 real user impact.
               </Text>
+              <Divider />
+              <GitHubStats />
             </Stack>
           </Grid.Col>
 
