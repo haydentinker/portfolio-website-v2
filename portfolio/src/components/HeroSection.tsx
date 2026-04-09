@@ -19,12 +19,18 @@ import {
 
 const ROLES = [
   "Full-Stack Software Engineer",
-  "React & TypeScript Dev",
-  "AWS Cloud Engineer",
-  "AI / RAG Builder",
+  "API & Backend Engineer",
+  "AI Integration Engineer",
+  "Cloud & DevOps Engineer",
+  "Interactive Frontend Engineer",
 ];
 
-function useTypewriter(phrases: string[], typingSpeed = 65, deletingSpeed = 35, pauseMs = 1800) {
+function useTypewriter(
+  phrases: string[],
+  typingSpeed = 65,
+  deletingSpeed = 35,
+  pauseMs = 1800,
+) {
   const [displayed, setDisplayed] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -52,7 +58,15 @@ function useTypewriter(phrases: string[], typingSpeed = 65, deletingSpeed = 35, 
       setDeleting(false);
       setPhraseIndex((i) => (i + 1) % phrases.length);
     }
-  }, [charIndex, deleting, phraseIndex, phrases, typingSpeed, deletingSpeed, pauseMs]);
+  }, [
+    charIndex,
+    deleting,
+    phraseIndex,
+    phrases,
+    typingSpeed,
+    deletingSpeed,
+    pauseMs,
+  ]);
 
   useEffect(() => {
     setDisplayed(phrases[phraseIndex].slice(0, charIndex));
@@ -110,10 +124,21 @@ export function HeroSection() {
                 Hayden Tinker
               </Text>{" "}
             </Title>
-            <Title order={2} c="dimmed" fw={400} size="xl" style={{ minHeight: "2rem" }}>
+            <Title
+              order={2}
+              c="dimmed"
+              fw={400}
+              size="xl"
+              style={{ minHeight: "2rem" }}
+            >
               {role}
-              <span style={{ borderRight: "2px solid", marginLeft: 2, animation: "blink 1s step-end infinite" }}>
-              </span>
+              <span
+                style={{
+                  borderRight: "2px solid",
+                  marginLeft: 2,
+                  animation: "blink 1s step-end infinite",
+                }}
+              ></span>
             </Title>
 
             <Text size="lg">
