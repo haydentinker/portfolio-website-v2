@@ -48,6 +48,26 @@ const PROJECTS: Project[] = [
     imageUrl: "/projects/repoChatBot.png",
   },
   {
+    name: "ACE (Awesome Customer Experience)",
+    description:
+      "Built a full-stack internal support platform that aggregates data from multiple backend services (Ringmaster, Fusion, AWS) into a unified agent UI. Developed a TypeScript-based architecture using React (Vite, Mantine, TanStack) and Node.js with Express, tRPC, and Zod for end-to-end type safety. Implemented AWS Cognito authentication with RBAC (Agent, Manager, Admin), PII masking, and a custom session management system enforcing inactivity-based expiration for compliance. Designed a backend aggregation layer to normalize disparate APIs and enable flexible service integration. Deployed on AWS using S3, CloudFront, WAF, CodePipeline, CodeBuild, and App Runner.",
+    tags: [
+      "TypeScript",
+      "React",
+      "Node.js",
+      "tRPC",
+      "Express",
+      "AWS Cognito",
+      "AWS App Runner",
+      "AWS S3",
+      "CloudFront",
+      "Zod",
+    ],
+    tagColor: "violet",
+    githubUrl: "",
+    imageUrl: "/projects/ace.png",
+  },
+  {
     name: "Portfolio Website",
     description:
       "The site you're on right now. Built with React, TypeScript, and Mantine UI. Deployed on Vercel with analytics tracking.",
@@ -95,17 +115,28 @@ function hoverStyle(hovered: boolean) {
   };
 }
 
+const DESCRIPTION_LINE_CLAMP = 3;
+
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  // Rough heuristic: show toggle if description is likely to overflow 3 lines
+  const showToggle = project.description.length > 120;
 
   return (
-    <AnimatedSection delay={index * 80}>
+    <AnimatedSection delay={index * 80} style={{ height: "100%" }}>
       <Card
         shadow="sm"
         padding="lg"
         radius="md"
         withBorder
-        style={{ display: "flex", flexDirection: "column", ...hoverStyle(hovered) }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "100%",
+          ...hoverStyle(hovered),
+        }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -124,9 +155,34 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             {project.name}
           </Text>
 
-          <Text size="sm" c="dimmed" style={{ flex: 1 }}>
-            {project.description}
-          </Text>
+          <Box>
+            <Text
+              size="sm"
+              c="dimmed"
+              style={
+                expanded
+                  ? undefined
+                  : {
+                      display: "-webkit-box",
+                      WebkitLineClamp: DESCRIPTION_LINE_CLAMP,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                    }
+              }
+            >
+              {project.description}
+            </Text>
+            {showToggle && (
+              <Text
+                size="xs"
+                c="blue"
+                style={{ cursor: "pointer", marginTop: 4 }}
+                onClick={() => setExpanded((e) => !e)}
+              >
+                {expanded ? "Show less" : "Show more"}
+              </Text>
+            )}
+          </Box>
 
           <Group gap="xs">
             {project.tags.map((tag) => (
@@ -141,7 +197,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             ))}
           </Group>
 
-          <Group gap="xs" mt="xs">
+          <Group gap="xs" mt="auto">
             <Button
               variant="outline"
               color="gray"
@@ -262,7 +318,11 @@ export const ProjectsSection = () => {
           </Card>
         </AnimatedSection>
 
-        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
+        <SimpleGrid
+          cols={{ base: 1, sm: 2 }}
+          spacing="lg"
+          style={{ alignItems: "stretch" }}
+        >
           {rest.map((project, i) => (
             <ProjectCard key={project.name} project={project} index={i} />
           ))}
