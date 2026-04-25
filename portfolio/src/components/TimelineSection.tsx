@@ -18,7 +18,7 @@ export const TimelineSection = () => {
       <Stack style={{ width: "100%", maxWidth: 800 }}>
         <Box mb="xl">
           <Title order={2} className="section-heading">
-            My Software Engineering Epic
+            Experience
           </Title>
         </Box>
 

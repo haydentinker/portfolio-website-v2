@@ -1,6 +1,8 @@
 import { useState } from "react";
 import {
+  ActionIcon,
   Center,
+  CopyButton,
   Stack,
   Title,
   Box,
@@ -10,8 +12,11 @@ import {
   Text,
   Alert,
   Group,
+  Tooltip,
 } from "@mantine/core";
-import { Send, CircleCheck, AlertCircle } from "tabler-icons-react";
+import { Send, CircleCheck, AlertCircle, Copy, Check, Mail } from "tabler-icons-react";
+
+const CONTACT_EMAIL = "haydentinker613@gmail.com";
 
 const FORMSPREE_ID = "xbdpbpow";
 
@@ -102,6 +107,24 @@ export const ContactSection = () => {
             Have a role in mind or just want to connect? Send me a message and
             I'll get back to you.
           </Text>
+          <Group gap="xs" mt="xs" align="center">
+            <Mail size={15} />
+            <Text size="sm">{CONTACT_EMAIL}</Text>
+            <CopyButton value={CONTACT_EMAIL} timeout={2000}>
+              {({ copied, copy }) => (
+                <Tooltip label={copied ? "Copied!" : "Copy email"} withArrow>
+                  <ActionIcon
+                    onClick={copy}
+                    variant="subtle"
+                    color={copied ? "green" : "gray"}
+                    size="sm"
+                  >
+                    {copied ? <Check size={14} /> : <Copy size={14} />}
+                  </ActionIcon>
+                </Tooltip>
+              )}
+            </CopyButton>
+          </Group>
         </Box>
 
         {status === "success" ? (

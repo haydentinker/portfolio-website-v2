@@ -7,6 +7,15 @@
   50% { opacity: 0; }
 }
 
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.scroll-indicator {
+  animation: bounce 1.8s ease-in-out infinite;
+}
+
 [data-mantine-color-scheme="dark"] .mantine-AppShell-header {
   background: rgba(26, 27, 30, 0.75) !important;
   backdrop-filter: blur(14px);

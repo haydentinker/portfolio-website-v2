@@ -13,8 +13,10 @@ import {
   Image,
   AspectRatio,
   Grid,
+  Tooltip,
+  Pagination,
 } from "@mantine/core";
-import { BrandGithub, ExternalLink } from "tabler-icons-react";
+import { BrandGithub, ExternalLink, Lock } from "tabler-icons-react";
 import { AnimatedSection } from "./AnimatedSection";
 
 interface Project {
@@ -22,8 +24,10 @@ interface Project {
   description: string;
   tags: string[];
   tagColor: string;
-  githubUrl: string;
+  githubUrl?: string;
+  privateRepo?: boolean;
   imageUrl: string;
+  imageFit?: "cover" | "contain";
   liveUrl?: string;
 }
 
@@ -64,8 +68,9 @@ const PROJECTS: Project[] = [
       "Zod",
     ],
     tagColor: "violet",
-    githubUrl: "",
+    privateRepo: true,
     imageUrl: "/projects/ace.png",
+    imageFit: "contain",
   },
   {
     name: "Portfolio Website",
@@ -96,6 +101,26 @@ const PROJECTS: Project[] = [
     imageUrl: "/projects/leetCode.jpg",
   },
   {
+    name: "WWU Wash & Dry API",
+    description:
+      "Collaborated on a Python Flask REST API for tracking WWU campus laundry machine availability. Designed the API endpoints and database schema, enabling users to query machine status and manage dorm and floor preferences. Returns JSON metadata and supports authentication for access to private user data.",
+    tags: ["Python", "Flask", "REST API", "Database Design", "pytest"],
+    tagColor: "cyan",
+    githubUrl: "https://github.com/garrettkmoody/WWU-Wash-And-Dry-Backend",
+    imageUrl: "/projects/wwuWashAndDry.png",
+    imageFit: "contain",
+  },
+  {
+    name: "Neural Network from Scratch",
+    description:
+      "Pair programmed a neural network implementation in Python for a university Machine Learning course, swapping driver/navigator roles and working through the logic together. Built to plug into a shared algorithm wrapper framework that evaluated accuracy via cross-validation and RMSE across real CSV datasets.",
+    tags: ["Python", "Machine Learning", "Neural Networks", "Data Science"],
+    tagColor: "grape",
+    githubUrl: "https://github.com/haydentinker/PythonNN",
+    imageUrl: "/projects/pythonNN.png",
+    imageFit: "contain",
+  },
+  {
     name: "Maple's Adventure",
     description:
       "Maple's Adventure is a side-scrolling game built with Python and Pygame, featuring a charming character trying to avoid obstacles as they progressively get faster.",
@@ -107,6 +132,8 @@ const PROJECTS: Project[] = [
   },
 ];
 
+const ITEMS_PER_PAGE = 4;
+
 function hoverStyle(hovered: boolean) {
   return {
     transition: "transform 0.2s ease, box-shadow 0.2s ease",
@@ -115,13 +142,57 @@ function hoverStyle(hovered: boolean) {
   };
 }
 
+function ProjectImage({
+  src,
+  alt,
+  fit,
+  radius,
+}: {
+  src: string;
+  alt: string;
+  fit?: "cover" | "contain";
+  radius?: string;
+}) {
+  if (fit === "contain") {
+    return (
+      <Box
+        style={{
+          width: "100%",
+          height: "100%",
+          background: "var(--mantine-color-dark-7)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "24px",
+          borderRadius: radius,
+        }}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fallbackSrc="https://placehold.co/600x338?text=No%20Image"
+          style={{ objectFit: "contain", maxHeight: "100%", maxWidth: "100%" }}
+        />
+      </Box>
+    );
+  }
+
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      fallbackSrc="https://placehold.co/600x338?text=No%20Image"
+      radius={radius}
+    />
+  );
+}
+
 const DESCRIPTION_LINE_CLAMP = 3;
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [hovered, setHovered] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
-  // Rough heuristic: show toggle if description is likely to overflow 3 lines
   const showToggle = project.description.length > 120;
 
   return (
@@ -142,10 +213,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       >
         <Card.Section>
           <AspectRatio ratio={16 / 9}>
-            <Image
+            <ProjectImage
               src={project.imageUrl}
               alt={`${project.name} screenshot`}
-              fallbackSrc="https://placehold.co/600x338?text=No+Image"
+              fit={project.imageFit}
             />
           </AspectRatio>
         </Card.Section>
@@ -198,16 +269,31 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </Group>
 
           <Group gap="xs" mt="auto">
-            <Button
-              variant="outline"
-              color="gray"
-              size="sm"
-              leftSection={<BrandGithub size={16} />}
-              onClick={() => window.open(project.githubUrl, "_blank")}
-              style={{ flex: 1 }}
-            >
-              GitHub
-            </Button>
+            {project.privateRepo ? (
+              <Tooltip label="This repository is private" withArrow>
+                <Button
+                  variant="outline"
+                  color="gray"
+                  size="sm"
+                  leftSection={<Lock size={16} />}
+                  disabled
+                  style={{ flex: 1 }}
+                >
+                  Private Repo
+                </Button>
+              </Tooltip>
+            ) : (
+              <Button
+                variant="outline"
+                color="gray"
+                size="sm"
+                leftSection={<BrandGithub size={16} />}
+                onClick={() => window.open(project.githubUrl, "_blank")}
+                style={{ flex: 1 }}
+              >
+                GitHub
+              </Button>
+            )}
             {project.liveUrl && (
               <Button
                 variant="light"
@@ -230,6 +316,21 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 export const ProjectsSection = () => {
   const [featured, ...rest] = PROJECTS;
   const [featuredHovered, setFeaturedHovered] = useState(false);
+  const [page, setPage] = useState(1);
+
+  function handlePageChange(next: number) {
+    setPage(next);
+    const el = document.getElementById("projects");
+    if (!el) return;
+    const headerHeight = (document.querySelector(".mantine-AppShell-header") as HTMLElement)?.offsetHeight ?? 60;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - headerHeight, behavior: "smooth" });
+  }
+
+  const totalPages = Math.ceil(rest.length / ITEMS_PER_PAGE);
+  const paginatedProjects = rest.slice(
+    (page - 1) * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE
+  );
 
   return (
     <Center mx="sm" mt={80} mb={120}>
@@ -253,11 +354,11 @@ export const ProjectsSection = () => {
             <Grid gutter="xl" align="center">
               <Grid.Col span={{ base: 12, sm: 6 }}>
                 <AspectRatio ratio={16 / 9}>
-                  <Image
+                  <ProjectImage
                     src={featured.imageUrl}
                     alt={`${featured.name} screenshot`}
+                    fit={featured.imageFit}
                     radius="sm"
-                    fallbackSrc="https://placehold.co/600x338?text=No+Image"
                   />
                 </AspectRatio>
               </Grid.Col>
@@ -291,15 +392,31 @@ export const ProjectsSection = () => {
                     ))}
                   </Group>
                   <Group gap="xs" mt="sm">
-                    <Button
-                      variant="outline"
-                      color="gray"
-                      size="sm"
-                      leftSection={<BrandGithub size={16} />}
-                      onClick={() => window.open(featured.githubUrl, "_blank")}
-                    >
-                      GitHub
-                    </Button>
+                    {featured.privateRepo ? (
+                      <Tooltip label="This repository is private" withArrow>
+                        <Button
+                          variant="outline"
+                          color="gray"
+                          size="sm"
+                          leftSection={<Lock size={16} />}
+                          disabled
+                        >
+                          Private Repo
+                        </Button>
+                      </Tooltip>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        color="gray"
+                        size="sm"
+                        leftSection={<BrandGithub size={16} />}
+                        onClick={() =>
+                          window.open(featured.githubUrl, "_blank")
+                        }
+                      >
+                        GitHub
+                      </Button>
+                    )}
                     {featured.liveUrl && (
                       <Button
                         variant="light"
@@ -323,10 +440,21 @@ export const ProjectsSection = () => {
           spacing="lg"
           style={{ alignItems: "stretch" }}
         >
-          {rest.map((project, i) => (
+          {paginatedProjects.map((project, i) => (
             <ProjectCard key={project.name} project={project} index={i} />
           ))}
         </SimpleGrid>
+
+        {totalPages > 1 && (
+          <Group justify="center">
+            <Pagination
+              total={totalPages}
+              value={page}
+              onChange={handlePageChange}
+              size="sm"
+            />
+          </Group>
+        )}
       </Stack>
     </Center>
   );

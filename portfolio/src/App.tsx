@@ -16,6 +16,7 @@ function App() {
   return (
     <AppShell
       withBorder={true}
+      header={{ height: 60 }}
       footer={{ height: 60 }}
       styles={{ main: { minHeight: "100vh" } }}
     >

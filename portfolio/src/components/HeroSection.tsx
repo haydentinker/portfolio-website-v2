@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import {
+  Box,
   Button,
+  Center,
   Container,
   Grid,
   Group,
@@ -13,7 +15,8 @@ import {
 import {
   BrandGithub,
   BrandLinkedin,
-  Download,
+  ChevronDown,
+  ExternalLink,
   CircleCheck,
 } from "tabler-icons-react";
 
@@ -97,22 +100,26 @@ export function HeroSection() {
   const role = useTypewriter(ROLES);
 
   return (
-    <Container pt={{ base: 100, md: 0 }} style={{ minHeight: "100vh" }}>
+    <Container
+      style={{ minHeight: "calc(100vh - 60px)", display: "flex", flexDirection: "column", paddingTop: "clamp(1.5rem, 5vh, 3rem)" }}
+    >
       <Grid
         style={{ width: "100%" }}
-        gutter={{ base: 32, md: 80 }}
+        gutter={{ base: 24, md: 48 }}
         align="center"
       >
         <Grid.Col span={{ base: 12, md: 7 }}>
-          <Stack mt={{ base: 10, md: 250 }} justify="center">
-            <Group gap="xs">
-              <ThemeIcon color="green" variant="light" size="sm" radius="xl">
-                <CircleCheck size={12} />
-              </ThemeIcon>
-              <Text size="sm" c="green" fw={500}>
-                Open to new opportunities
-              </Text>
-            </Group>
+          <Stack mt={{ base: 10, md: 0 }} justify="center">
+            {import.meta.env.VITE_OPEN_TO_WORK === "true" && (
+              <Group gap="xs">
+                <ThemeIcon color="green" variant="light" size="sm" radius="xl">
+                  <CircleCheck size={12} />
+                </ThemeIcon>
+                <Text size="sm" c="green" fw={500}>
+                  Open to new opportunities
+                </Text>
+              </Group>
+            )}
             <Title
               order={1}
               style={{ fontSize: "clamp(2.5rem, 10vw, 5rem)", lineHeight: 1.1 }}
@@ -154,7 +161,7 @@ export function HeroSection() {
                 size="md"
                 variant="gradient"
                 gradient={{ from: "#339af0", to: "#22d3ee" }}
-                leftSection={<Download size={19} />}
+                leftSection={<ExternalLink size={19} />}
                 onClick={() => window.open("/HaydenTinker.pdf", "_blank")}
                 className="hero-cta-primary"
               >
@@ -194,6 +201,29 @@ export function HeroSection() {
             className="hero-animate hero-animate-2"
             pb={{ base: "xl", md: 0 }}
           >
+            <Center>
+              <Box
+                w={150}
+                h={150}
+                style={{
+                  borderRadius: "var(--mantine-radius-lg)",
+                  overflow: "hidden",
+                  flexShrink: 0,
+                }}
+              >
+                <img
+                  src="/headshot.png"
+                  alt="Hayden Tinker"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    objectPosition: "center top",
+                    display: "block",
+                  }}
+                />
+              </Box>
+            </Center>
             <div className="hero-stack-header">
               <Text
                 size="xs"
@@ -222,6 +252,24 @@ export function HeroSection() {
           </Stack>
         </Grid.Col>
       </Grid>
+      <Box
+        className="scroll-indicator"
+        onClick={() => {
+          const el = document.getElementById("about");
+          if (!el) return;
+          const headerHeight = (document.querySelector(".mantine-AppShell-header") as HTMLElement)?.offsetHeight ?? 60;
+          window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - headerHeight, behavior: "smooth" });
+        }}
+        style={{
+          alignSelf: "center",
+          cursor: "pointer",
+          opacity: 0.4,
+          paddingTop: "1.5rem",
+          paddingBottom: "1.5rem",
+        }}
+      >
+        <ChevronDown size={28} />
+      </Box>
     </Container>
   );
 }

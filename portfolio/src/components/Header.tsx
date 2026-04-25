@@ -11,20 +11,63 @@ import {
   useComputedColorScheme,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { BrandLinkedin, BrandGithub, Download, Sun, Moon } from "tabler-icons-react";
+import { useEffect, useState } from "react";
+import { BrandLinkedin, BrandGithub, ExternalLink, Sun, Moon } from "tabler-icons-react";
+
+const NAV_SECTIONS = ["hero", "about", "timeline", "projects", "contact"] as const;
+type Section = (typeof NAV_SECTIONS)[number];
 
 function scrollTo(id: string, close?: () => void) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const el = document.getElementById(id);
+  if (!el) return;
+  const headerHeight = (document.querySelector(".mantine-AppShell-header") as HTMLElement)?.offsetHeight ?? 60;
+  const top = el.getBoundingClientRect().top + window.scrollY - headerHeight;
+  window.scrollTo({ top, behavior: "smooth" });
   close?.();
+}
+
+function useActiveSection(): Section {
+  const [active, setActive] = useState<Section>("hero");
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+
+    NAV_SECTIONS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActive(id);
+        },
+        // fires when a section enters the middle band of the viewport
+        { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
+
+  return active;
 }
 
 export const Header = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const { setColorScheme } = useMantineColorScheme();
   const computed = useComputedColorScheme("dark");
+  const activeSection = useActiveSection();
 
   function toggleScheme() {
     setColorScheme(computed === "dark" ? "light" : "dark");
+  }
+
+  function navProps(id: Section) {
+    const isActive = activeSection === id;
+    return {
+      variant: isActive ? ("light" as const) : ("subtle" as const),
+      color: isActive ? "blue" : undefined,
+    };
   }
 
   return (
@@ -40,13 +83,16 @@ export const Header = () => {
 
         {/* Desktop nav */}
         <Flex gap={4} align="center" visibleFrom="sm">
-          <Button onClick={() => scrollTo("timeline")} variant="subtle" size="sm">
+          <Button onClick={() => scrollTo("about")} size="sm" {...navProps("about")}>
+            About
+          </Button>
+          <Button onClick={() => scrollTo("timeline")} size="sm" {...navProps("timeline")}>
             Experience
           </Button>
-          <Button onClick={() => scrollTo("projects")} variant="subtle" size="sm">
+          <Button onClick={() => scrollTo("projects")} size="sm" {...navProps("projects")}>
             Projects
           </Button>
-          <Button onClick={() => scrollTo("contact")} variant="subtle" size="sm">
+          <Button onClick={() => scrollTo("contact")} size="sm" {...navProps("contact")}>
             Contact
           </Button>
           <Button
@@ -62,6 +108,7 @@ export const Header = () => {
             }
             variant="subtle"
             size="sm"
+            aria-label="LinkedIn profile"
           >
             <BrandLinkedin size={18} />
           </Button>
@@ -71,6 +118,7 @@ export const Header = () => {
             }
             variant="subtle"
             size="sm"
+            aria-label="GitHub profile"
           >
             <BrandGithub size={18} />
           </Button>
@@ -113,6 +161,14 @@ export const Header = () => {
             fullWidth
             variant="subtle"
             size="md"
+            onClick={() => scrollTo("about", close)}
+          >
+            About
+          </Button>
+          <Button
+            fullWidth
+            variant="subtle"
+            size="md"
             onClick={() => scrollTo("timeline", close)}
           >
             Experience
@@ -138,7 +194,7 @@ export const Header = () => {
             fullWidth
             variant="light"
             size="md"
-            leftSection={<Download size={16} />}
+            leftSection={<ExternalLink size={16} />}
             onClick={() => {
               window.open("/HaydenTinker.pdf", "_blank");
               close();
