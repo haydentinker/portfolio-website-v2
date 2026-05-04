@@ -48,25 +48,33 @@ export const AboutSection = () => {
           <Grid.Col span={{ base: 12, md: 7 }}>
             <Stack gap="md">
               <Text size="lg" lh={1.8}>
-                I'm a Full-Stack Software Engineer based in the US with a
-                background in both computer science and business administration.
-                I've spent the last few years building production software at
-                companies like{" "}
+                I'm a Full-Stack Engineer based in the Detroit Metro Area with a
+                background in computer science and business. I've shipped
+                production software at a fintech startup and one of the largest
+                companies in the world, building everything from{" "}
                 <Text component="span" fw={600} c="blue">
-                  CARD.com
+                  compliance-grade internal platforms
                 </Text>{" "}
-                and{" "}
-                <Text component="span" fw={600} c="indigo">
-                  Sherwin-Williams
+                to{" "}
+                <Text component="span" fw={600} c="yellow">
+                  AI-powered developer tools
                 </Text>
-                , working across the full stack from React frontends to AWS
-                infrastructure.
-              </Text>
-              <Text size="lg" lh={1.8} c="dimmed">
-                Outside of work I enjoy building side projects, grinding
-                LeetCode, and exploring new tools. I'm at my best when working
-                on problems that sit at the intersection of good engineering and
-                real user impact.
+                . I write code that's{" "}
+                <Text component="span" fw={600} c="blue">
+                  readable, maintainable, and built to last
+                </Text>
+                , not just code that ships fast. I gravitate toward work that
+                pulls me into{" "}
+                <Text component="span" fw={600} c="yellow">
+                  unfamiliar problems and new domains
+                </Text>
+                , because that's where the best learning happens. And I believe
+                software gets better when the{" "}
+                <Text component="span" fw={600} c="green">
+                  people around you get better too
+                </Text>
+                , which is why I put real effort into code reviews,
+                documentation, and the craft of working well with a team.
               </Text>
               <Divider />
               <GitHubStats />

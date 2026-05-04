@@ -24,8 +24,6 @@ const ROLES = [
   "Full-Stack Software Engineer",
   "API & Backend Engineer",
   "AI Integration Engineer",
-  "Cloud & DevOps Engineer",
-  "Interactive Frontend Engineer",
 ];
 
 function useTypewriter(
@@ -79,29 +77,34 @@ function useTypewriter(
 }
 const SKILLS = [
   { name: "TypeScript", from: "blue", to: "cyan" },
-  { name: "React", from: "cyan", to: "teal" },
+  { name: "React.js", from: "cyan", to: "teal" },
   { name: "Node.js", from: "green", to: "teal" },
+  { name: "Next.js", from: "gray", to: "dark" },
   { name: "AWS", from: "orange", to: "yellow" },
   { name: "AWS CDK", from: "orange", to: "red" },
   { name: "Python", from: "red", to: "orange" },
   { name: "Flask", from: "yellow", to: "red" },
-  { name: "AI Integration", from: "pink", to: "red" },
-  { name: "SQL", from: "grape", to: "violet" },
-  { name: "NoSQL", from: "green", to: "blue" },
-  { name: "Redis", from: "red", to: "pink" },
+  { name: "LangChain", from: "pink", to: "red" },
   { name: "REST APIs", from: "violet", to: "indigo" },
   { name: "GraphQL", from: "indigo", to: "blue" },
-  { name: "Microservices", from: "blue", to: "red" },
-  { name: "Full-Stack Development", from: "gray", to: "dark" },
+  { name: "PostgreSQL", from: "grape", to: "violet" },
+  { name: "MongoDB", from: "green", to: "blue" },
   { name: "Docker", from: "blue", to: "indigo" },
-  { name: "Web Application Development", from: "yellow", to: "indigo" },
+  { name: "CI/CD", from: "blue", to: "red" },
+  { name: "Microservices", from: "blue", to: "red" },
+  { name: "tRPC", from: "indigo", to: "blue" },
 ];
 export function HeroSection() {
   const role = useTypewriter(ROLES);
 
   return (
     <Container
-      style={{ minHeight: "calc(100vh - 60px)", display: "flex", flexDirection: "column", paddingTop: "clamp(1.5rem, 5vh, 3rem)" }}
+      style={{
+        minHeight: "calc(100vh - 60px)",
+        display: "flex",
+        flexDirection: "column",
+        paddingTop: "clamp(1.5rem, 5vh, 3rem)",
+      }}
     >
       <Grid
         style={{ width: "100%" }}
@@ -152,9 +155,7 @@ export function HeroSection() {
             </Title>
 
             <Text size="lg">
-              Skilled Full-Stack Engineer with expertise in TypeScript, React,
-              Node.js, and AWS. Developed innovative software solutions that
-              improved operational efficiency and enhanced user experiences.
+              I turn complex problems into clean, scalable software.
             </Text>
             <Group gap="sm" wrap="wrap">
               <Button
@@ -257,8 +258,13 @@ export function HeroSection() {
         onClick={() => {
           const el = document.getElementById("about");
           if (!el) return;
-          const headerHeight = (document.querySelector(".mantine-AppShell-header") as HTMLElement)?.offsetHeight ?? 60;
-          window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - headerHeight, behavior: "smooth" });
+          const headerHeight =
+            (document.querySelector(".mantine-AppShell-header") as HTMLElement)
+              ?.offsetHeight ?? 60;
+          window.scrollTo({
+            top: el.getBoundingClientRect().top + window.scrollY - headerHeight,
+            behavior: "smooth",
+          });
         }}
         style={{
           alignSelf: "center",

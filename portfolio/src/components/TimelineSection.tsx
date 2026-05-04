@@ -38,7 +38,7 @@ export const TimelineSection = () => {
               <Text fw={600} size="md">
                 Full-Stack Engineer — CARD.com
                 <Text component="span" c="dimmed" size="sm" ml="xs">
-                  02/25 – Current
+                  Feb 2025 – Feb 2026
                 </Text>
               </Text>
             }
@@ -50,32 +50,37 @@ export const TimelineSection = () => {
               </Text>
               <List size="sm" spacing="xs" mb="sm">
                 <List.Item>
-                  Developed full-stack customer support platform with React,
-                  TypeScript, Node.js, and AWS CDK for transaction investigation
-                  and account management, reducing manual workflows and
-                  improving response times.
+                  Built ACE, a compliance-grade internal support platform
+                  unifying multiple backend services into a single agent-facing
+                  interface, implementing multi-tier RBAC, PII masking, and AWS
+                  Cognito authentication to meet security and compliance
+                  requirements.
                 </List.Item>
                 <List.Item>
-                  Integrated Plaid and Pinwheel APIs enabling automated
-                  recurring payment transfers and simplified bill management
-                  across accounts.
+                  Integrated Plaid and Pinwheel APIs to automate recurring
+                  payment transfers, reducing manual bill migration effort for
+                  customers.
                 </List.Item>
                 <List.Item>
-                  Optimized frontend performance with Redis caching strategies.
+                  Deployed cloud-native infrastructure across a multi-region AWS
+                  architecture using App Runner, S3, CloudFront, WAF, and
+                  CodePipeline for high availability and reliability.
                 </List.Item>
                 <List.Item>
-                  Conducted code reviews and architectural discussions to
-                  improve delivery quality and team efficiency.
+                  Led code reviews and architectural discussions to maintain
+                  delivery quality and team velocity.
                 </List.Item>
               </List>
               <Group gap="xs" mt="sm">
                 {[
-                  "React",
                   "TypeScript",
+                  "React",
                   "Node.js",
                   "AWS CDK",
-                  "Redis",
+                  "tRPC",
+                  "PostgreSQL",
                   "Plaid",
+                  "Pinwheel",
                 ].map((t) => (
                   <Badge key={t} size="sm" variant="light" color="violet">
                     {t}
@@ -84,6 +89,7 @@ export const TimelineSection = () => {
               </Group>
             </Box>
           </Timeline.Item>
+
           <Timeline.Item
             bullet={
               <ThemeIcon
@@ -97,9 +103,9 @@ export const TimelineSection = () => {
             }
             title={
               <Text fw={600} size="md">
-                Full-Stack Engineer — Sherwin Williams
+                Full-Stack Engineer — Sherwin-Williams
                 <Text component="span" c="dimmed" size="sm" ml="xs">
-                  02/24 – 02/25
+                  Feb 2024 – Feb 2025
                 </Text>
               </Text>
             }
@@ -107,65 +113,39 @@ export const TimelineSection = () => {
             <Box>
               <Text c="dimmed" size="sm" mb="sm">
                 Leading global paint and coatings company providing high-quality
-                products, color solutions, and digital tools.
+                products, color solutions, and digital tools to professionals
+                and retail customers.
               </Text>
               <List size="sm" spacing="xs" mb="sm">
                 <List.Item>
-                  Built full-stack price quote tool using React, Node.js, Java,
-                  and SQL — allowing users to estimate paint costs efficiently
-                  and improving sales conversion through faster quotes.
-                </List.Item>
-                <List.Item>
-                  Optimized internal searching tool speed by{" "}
+                  Optimized a critical internal search tool by{" "}
                   <Text component="span" fw={700} c="blue">
                     90%
                   </Text>
-                  , increasing operational efficiency.
+                  , directly improving daily operational efficiency across the
+                  organization.
                 </List.Item>
                 <List.Item>
-                  Collaborated with cross-functional teams to implement
-                  user-centric applications with high scalability.
+                  Built a full-stack price quote tool using React, Node.js,
+                  Java, and SQL that let users estimate paint costs in real
+                  time, improving sales conversion through faster quote
+                  generation.
                 </List.Item>
                 <List.Item>
-                  Created technical documents to enhance understanding and
-                  usability of software solutions.
+                  Collaborated with cross-functional teams to ship scalable,
+                  user-facing applications and produced technical documentation
+                  to improve developer onboarding and usability.
                 </List.Item>
               </List>
               <Group gap="xs" mt="sm">
-                {["React", "Node.js", "Java", "SQL"].map((t) => (
-                  <Badge key={t} size="sm" variant="light" color="indigo">
-                    {t}
-                  </Badge>
-                ))}
+                {["React", "Node.js", "Java", "SQL", "Tailwind CSS"].map(
+                  (t) => (
+                    <Badge key={t} size="sm" variant="light" color="indigo">
+                      {t}
+                    </Badge>
+                  ),
+                )}
               </Group>
-            </Box>
-          </Timeline.Item>
-
-          <Timeline.Item
-            bullet={
-              <ThemeIcon
-                variant="gradient"
-                size="lg"
-                gradient={{ from: "teal", to: "cyan", deg: 90 }}
-                radius="xl"
-              >
-                <School size={16} />
-              </ThemeIcon>
-            }
-            title={
-              <Text fw={600} size="md">
-                BS Computer Science & Business Administration
-                <Text component="span" c="dimmed" size="sm" ml="xs">
-                  06/23 · 3.4 GPA
-                </Text>
-              </Text>
-            }
-          >
-            <Box>
-              <Text c="dimmed" size="sm">
-                Graduated with a dual degree combining software engineering
-                fundamentals with business acumen.
-              </Text>
             </Box>
           </Timeline.Item>
 
@@ -184,38 +164,71 @@ export const TimelineSection = () => {
               <Text fw={600} size="md">
                 Software Developer — Walla Walla University
                 <Text component="span" c="dimmed" size="sm" ml="xs">
-                  09/22 – 06/23
+                  Sep 2022 – Jun 2023
                 </Text>
               </Text>
             }
           >
             <Box>
+              <Text c="dimmed" size="sm" mb="sm">
+                Part-time role building production software for academic
+                departments and administrative functions while completing my
+                degree.
+              </Text>
               <List size="sm" spacing="xs" mb="sm">
                 <List.Item>
-                  Developed software solutions that streamlined operations for
-                  academic departments and administrative functions.
-                </List.Item>
-                <List.Item>
-                  Directed backend development for production web application,
+                  Directed backend development for a production web application,
                   designing scalable RESTful APIs and core business logic for
-                  classroom applications.
+                  classroom management systems.
                 </List.Item>
                 <List.Item>
-                  Designed schemas and bootstrapped MySQL database systems,
-                  maintaining data integrity and improving query performance.
+                  Bootstrapped MySQL database schemas focused on query
+                  performance and data integrity, enabling reliable backend
+                  services for real users.
                 </List.Item>
                 <List.Item>
-                  Integrated user-facing elements with backend services,
-                  collaborating closely with frontend developers.
+                  Integrated user-facing elements with backend services in close
+                  collaboration with frontend developers.
                 </List.Item>
               </List>
               <Group gap="xs" mt="sm">
-                {["REST APIs", "MySQL", "Node.js"].map((t) => (
-                  <Badge key={t} size="sm" variant="light" color="grape">
-                    {t}
-                  </Badge>
-                ))}
+                {["REST APIs", "MySQL", "Node.js", "Python", "Flask"].map(
+                  (t) => (
+                    <Badge key={t} size="sm" variant="light" color="grape">
+                      {t}
+                    </Badge>
+                  ),
+                )}
               </Group>
+            </Box>
+          </Timeline.Item>
+
+          <Timeline.Item
+            bullet={
+              <ThemeIcon
+                variant="gradient"
+                size="lg"
+                gradient={{ from: "teal", to: "cyan", deg: 90 }}
+                radius="xl"
+              >
+                <School size={16} />
+              </ThemeIcon>
+            }
+            title={
+              <Text fw={600} size="md">
+                B.S. Computer Science & Business Administration
+                <Text component="span" c="dimmed" size="sm" ml="xs">
+                  Jun 2023 · 3.4 GPA
+                </Text>
+              </Text>
+            }
+          >
+            <Box>
+              <Text c="dimmed" size="sm">
+                Walla Walla University. Dual degree combining software
+                engineering fundamentals with business acumen in management,
+                marketing, and finance.
+              </Text>
             </Box>
           </Timeline.Item>
         </Timeline>
