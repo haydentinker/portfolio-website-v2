@@ -51,27 +51,27 @@ const PROJECTS: Project[] = [
     githubUrl: "https://github.com/haydentinker/Repo-Chat-Bot",
     imageUrl: "/projects/repoChatBot.png",
   },
-  {
-    name: "ACE (Awesome Customer Experience)",
-    description:
-      "Built a full-stack internal support platform that aggregates data from multiple backend services (Ringmaster, Fusion, AWS) into a unified agent UI. Developed a TypeScript-based architecture using React (Vite, Mantine, TanStack) and Node.js with Express, tRPC, and Zod for end-to-end type safety. Implemented AWS Cognito authentication with RBAC (Agent, Manager, Admin), PII masking, and a custom session management system enforcing inactivity-based expiration for compliance. Designed a backend aggregation layer to normalize disparate APIs and enable flexible service integration. Deployed on AWS using S3, CloudFront, WAF, CodePipeline, CodeBuild, and App Runner.",
-    tags: [
-      "TypeScript",
-      "React",
-      "Node.js",
-      "tRPC",
-      "Express",
-      "AWS Cognito",
-      "AWS App Runner",
-      "AWS S3",
-      "CloudFront",
-      "Zod",
-    ],
-    tagColor: "violet",
-    privateRepo: true,
-    imageUrl: "/projects/ace.png",
-    imageFit: "contain",
-  },
+  // {
+  //   name: "ACE (Awesome Customer Experience)",
+  //   description:
+  //     "Built a full-stack internal support platform that aggregates data from multiple backend services (Ringmaster, Fusion, AWS) into a unified agent UI. Developed a TypeScript-based architecture using React (Vite, Mantine, TanStack) and Node.js with Express, tRPC, and Zod for end-to-end type safety. Implemented AWS Cognito authentication with RBAC (Agent, Manager, Admin), PII masking, and a custom session management system enforcing inactivity-based expiration for compliance. Designed a backend aggregation layer to normalize disparate APIs and enable flexible service integration. Deployed on AWS using S3, CloudFront, WAF, CodePipeline, CodeBuild, and App Runner.",
+  //   tags: [
+  //     "TypeScript",
+  //     "React",
+  //     "Node.js",
+  //     "tRPC",
+  //     "Express",
+  //     "AWS Cognito",
+  //     "AWS App Runner",
+  //     "AWS S3",
+  //     "CloudFront",
+  //     "Zod",
+  //   ],
+  //   tagColor: "violet",
+  //   privateRepo: true,
+  //   imageUrl: "/projects/ace.png",
+  //   imageFit: "contain",
+  // },
   {
     name: "Portfolio Website",
     description:
@@ -322,14 +322,19 @@ export const ProjectsSection = () => {
     setPage(next);
     const el = document.getElementById("projects");
     if (!el) return;
-    const headerHeight = (document.querySelector(".mantine-AppShell-header") as HTMLElement)?.offsetHeight ?? 60;
-    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - headerHeight, behavior: "smooth" });
+    const headerHeight =
+      (document.querySelector(".mantine-AppShell-header") as HTMLElement)
+        ?.offsetHeight ?? 60;
+    window.scrollTo({
+      top: el.getBoundingClientRect().top + window.scrollY - headerHeight,
+      behavior: "smooth",
+    });
   }
 
   const totalPages = Math.ceil(rest.length / ITEMS_PER_PAGE);
   const paginatedProjects = rest.slice(
     (page - 1) * ITEMS_PER_PAGE,
-    page * ITEMS_PER_PAGE
+    page * ITEMS_PER_PAGE,
   );
 
   return (
