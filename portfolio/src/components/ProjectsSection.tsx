@@ -33,6 +33,15 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
+    name: "Plutus",
+    description:
+      "A local MCP server that connects Claude to real bank accounts via the Plaid API. Ask questions about your finances in plain English — balances, transactions, spending breakdowns, recurring payments — without pasting data manually. Exposes tools, a resource, and slash-command prompts that Claude uses to answer financial questions across multiple linked accounts.",
+    tags: ["TypeScript", "MCP", "Node.js", "Plaid API", "Express", "Zod"],
+    tagColor: "green",
+    githubUrl: "https://github.com/haydentinker/Plutus",
+    imageUrl: "/projects/plutus.png",
+  },
+  {
     name: "Repository Augur",
     description:
       "Engineered a scalable RAG-based chat system using React, Flask, and MongoDB Atlas vector indexing, enabling semantic search and real-time AI responses over GitHub repositories. Implemented incremental ingestion, GitHub OAuth, and LangGraph-based agent workflows for efficient, context-aware querying.",

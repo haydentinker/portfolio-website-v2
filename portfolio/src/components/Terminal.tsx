@@ -18,7 +18,7 @@ const HELP_TEXT = `Available commands:
 
 const COMMANDS: Record<string, string> = {
   whoami: `Hayden Tinker — Full-Stack Software Engineer based in the US.
-CS + Business Administration grad. Currently building fintech software at CARD.com.
+CS + Business Administration grad. Previously built fintech software at CARD.com and Sherwin-Williams.
 Passionate about clean code, great UX, and problems worth solving.`,
 
   skills: `Languages:   TypeScript · Python · Java · SQL
@@ -28,7 +28,7 @@ Cloud/Infra: AWS · AWS CDK · Docker · Redis
 Databases:   PostgreSQL · MongoDB Atlas · MySQL
 AI/ML:       LangChain · LangGraph · RAG pipelines`,
 
-  experience: `[Current]  Full-Stack Engineer @ CARD.com (02/25 – present)
+  experience: `[2025-26]  Full-Stack Engineer @ CARD.com (02/25 – 02/26)
            React · TypeScript · Node.js · AWS CDK · Redis
 
 [2024]     Full-Stack Engineer @ Sherwin-Williams (02/24 – 02/25)

@@ -2,6 +2,24 @@
   --mantine-color-body: var(--mantine-color-dark-8);
 }
 
+[data-mantine-color-scheme="dark"] .mantine-AppShell-root {
+  background-color: var(--mantine-color-dark-8);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-attachment: fixed;
+}
+
+[data-mantine-color-scheme="light"] .mantine-AppShell-root {
+  background-color: var(--mantine-color-gray-0);
+  background-image: radial-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-attachment: fixed;
+}
+
+.mantine-AppShell-main {
+  background: transparent !important;
+}
+
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }

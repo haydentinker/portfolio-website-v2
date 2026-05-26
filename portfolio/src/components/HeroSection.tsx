@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -96,6 +96,18 @@ const SKILLS = [
 ];
 export function HeroSection() {
   const role = useTypewriter(ROLES);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function onScroll() {
+      const y = window.scrollY;
+      if (leftRef.current) leftRef.current.style.transform = `translateY(${y * 0.06}px)`;
+      if (rightRef.current) rightRef.current.style.transform = `translateY(${y * 0.14}px)`;
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <Container
@@ -112,7 +124,7 @@ export function HeroSection() {
         align="center"
       >
         <Grid.Col span={{ base: 12, md: 7 }}>
-          <Stack mt={{ base: 10, md: 0 }} justify="center">
+          <Stack ref={leftRef} mt={{ base: 10, md: 0 }} justify="center" style={{ willChange: "transform" }}>
             {import.meta.env.VITE_OPEN_TO_WORK === "true" && (
               <Group gap="xs">
                 <ThemeIcon color="green" variant="light" size="sm" radius="xl">
@@ -198,9 +210,11 @@ export function HeroSection() {
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 5 }}>
           <Stack
+            ref={rightRef}
             gap="lg"
             className="hero-animate hero-animate-2"
             pb={{ base: "xl", md: 0 }}
+            style={{ willChange: "transform" }}
           >
             <Center>
               <Box
