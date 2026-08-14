@@ -104,8 +104,8 @@ export const ContactSection = () => {
             Get In Touch
           </Title>
           <Text c="dimmed" mt="xs">
-            Have a role in mind or just want to connect? Send me a message and
-            I'll get back to you.
+            Want to talk shop, collaborate on something, or just connect? Send
+            me a message and I'll get back to you.
           </Text>
           <Group gap="xs" mt="xs" align="center">
             <Mail size={15} />
@@ -187,7 +187,7 @@ export const ContactSection = () => {
 
               <Textarea
                 label="Message"
-                placeholder="Tell me about the opportunity or just say hello..."
+                placeholder="Tell me what's on your mind or just say hello..."
                 name="message"
                 value={fields.message}
                 onChange={handleChange}

@@ -17,7 +17,7 @@ const HELP_TEXT = `Available commands:
   help         Show this message`;
 
 const COMMANDS: Record<string, string> = {
-  whoami: `Hayden Tinker — Full-Stack Software Engineer based in the US.
+  whoami: `Hayden Tinker — Software Engineer @ Bankrate (Red Ventures).
 CS + Business Administration grad. Previously built fintech software at CARD.com and Sherwin-Williams.
 Passionate about clean code, great UX, and problems worth solving.`,
 
@@ -28,7 +28,10 @@ Cloud/Infra: AWS · AWS CDK · Docker · Redis
 Databases:   PostgreSQL · MongoDB Atlas · MySQL
 AI/ML:       LangChain · LangGraph · RAG pipelines`,
 
-  experience: `[2025-26]  Full-Stack Engineer @ CARD.com (02/25 – 02/26)
+  experience: `[2026- ]   Software Engineer @ Bankrate (Red Ventures) (09/26 – present)
+           TypeScript · Node.js · React · Cloud Infra · CI/CD
+
+[2025-26]  Full-Stack Engineer @ CARD.com (02/25 – 02/26)
            React · TypeScript · Node.js · AWS CDK · Redis
 
 [2024]     Full-Stack Engineer @ Sherwin-Williams (02/24 – 02/25)
@@ -50,7 +53,7 @@ AI/ML:       LangChain · LangGraph · RAG pipelines`,
 4. Portfolio Website  — this site (React · TypeScript · Mantine)
    github.com/haydentinker/portfolio-website-v2`,
 
-  contact: `Email:    haydentinker7@gmail.com
+  contact: `Email:    haydentinker613@gmail.com
 LinkedIn: linkedin.com/in/hayden-tinker
 GitHub:   github.com/haydentinker
 

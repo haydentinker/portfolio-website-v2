@@ -48,10 +48,14 @@ export const AboutSection = () => {
           <Grid.Col span={{ base: 12, md: 7 }}>
             <Stack gap="md">
               <Text size="lg" lh={1.8}>
-                I'm a Full-Stack Engineer based in the Detroit Metro Area with a
-                background in computer science and business. I've shipped
-                production software at a fintech startup and one of the largest
-                companies in the world, building everything from{" "}
+                I'm a Software Engineer at{" "}
+                <Text component="span" fw={600} c="teal">
+                  Bankrate
+                </Text>
+                , based in the Detroit Metro Area with a background in computer
+                science and business. I've shipped production software at a
+                fintech startup and one of the largest companies in the world,
+                building everything from{" "}
                 <Text component="span" fw={600} c="blue">
                   compliance-grade internal platforms
                 </Text>{" "}

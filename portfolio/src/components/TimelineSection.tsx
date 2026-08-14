@@ -10,7 +10,13 @@ import {
   Badge,
   Group,
 } from "@mantine/core";
-import { CreditCard, School, Paint, AppWindow } from "tabler-icons-react";
+import {
+  BuildingBank,
+  CreditCard,
+  School,
+  Paint,
+  AppWindow,
+} from "tabler-icons-react";
 
 export const TimelineSection = () => {
   return (
@@ -23,6 +29,73 @@ export const TimelineSection = () => {
         </Box>
 
         <Timeline bulletSize={28} lineWidth={2}>
+          <Timeline.Item
+            bullet={
+              <ThemeIcon
+                variant="gradient"
+                size="lg"
+                gradient={{ from: "green", to: "teal", deg: 90 }}
+                radius="xl"
+              >
+                <BuildingBank size={16} />
+              </ThemeIcon>
+            }
+            title={
+              <Text fw={600} size="md">
+                Software Engineer — Bankrate (Red Ventures)
+                <Text component="span" c="dimmed" size="sm" ml="xs">
+                  Sep 2026 – Present
+                </Text>
+              </Text>
+            }
+          >
+            <Box>
+              <Text c="dimmed" size="sm" mb="sm">
+                Personal finance platform where Americans compare mortgages,
+                credit cards, and savings products — and the rate provider
+                relied on by the Federal Reserve and national publishers.
+              </Text>
+              <List size="sm" spacing="xs" mb="sm">
+                <List.Item>
+                  Design, build, and maintain scalable, reliable services and
+                  product features across a primarily TypeScript stack spanning
+                  API services and full-stack web frameworks.
+                </List.Item>
+                <List.Item>
+                  Contribute to system and API design, data modeling, and
+                  architectural discussions, balancing tradeoffs between
+                  scalability, maintainability, and performance.
+                </List.Item>
+                <List.Item>
+                  Improve automation, observability, and deployment through
+                  CI/CD pipelines and infrastructure-as-code on cloud
+                  infrastructure.
+                </List.Item>
+                <List.Item>
+                  Mentor associate and junior engineers through code review and
+                  pair programming, and integrate AI tooling into the team's
+                  workflow to raise velocity and quality.
+                </List.Item>
+              </List>
+              <Group gap="xs" mt="sm">
+                {[
+                  "TypeScript",
+                  "Node.js",
+                  "React",
+                  "API Design",
+                  "Cloud Infrastructure",
+                  "Infrastructure as Code",
+                  "CI/CD",
+                  "Observability",
+                ].map((t) => (
+                  <Badge key={t} size="sm" variant="light" color="teal">
+                    {t}
+                  </Badge>
+                ))}
+              </Group>
+            </Box>
+          </Timeline.Item>
+
           <Timeline.Item
             bullet={
               <ThemeIcon
